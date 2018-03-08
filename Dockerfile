@@ -17,10 +17,7 @@ ENV JBOSS_HOME="/home/jboss/jboss-${JBOSS_VERSION}"
 ENV JAVA_OPTS="$JAVA_OPTS \
 -Djboss.bind.address=0.0.0.0 \
 -Djboss.bind.address.management=0.0.0.0 \
--Djava.net.preferIPv4Stack=true \
--XX:+UnlockExperimentalVMOptions \
--XX:+UseCGroupMemoryLimitForHeap \
--XshowSettings:vm"
+-Djava.net.preferIPv4Stack=true "
 CMD /bin/bash
 ENTRYPOINT /bin/bash ${JBOSS_HOME}/bin/run.sh
 RUN wget --no-check-certificate \
@@ -32,9 +29,9 @@ RUN wget --no-check-certificate \
 ############################################ USAGE ##############################################
 # FROM daggerok/jboss4-java5:v2                                                                 #
 # HEALTHCHECK --timeout=2s --retries=22 \                                                       #
-#         CMD wget -q --spider http://127.0.0.1:8080/health \                                   #
+#         CMD wget -q --spider http://127.0.0.1:8080/my-service/health \                        #
 #          || exit 1                                                                            #
-# COPY --chown=jboss target/*.war ${JBOSS_HOME}/default/deploy/                                 #
+# COPY --chown=jboss target/*.war ${JBOSS_HOME}/default/deploy/my-service.war                   #
 #################################################################################################
 
 ######################################## DEBUG USAGE ############################################

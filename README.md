@@ -16,13 +16,15 @@ HEALTHCHECK --timeout=2s --retries=22 \
 ADD ./build/libs/*.war ${JBOSS_HOME}/default/deploy/my-service.war
 ```
 
-#### Remote debug:
+#### Remote debug / Multi-build deployment:
 
 ```
 
 FROM daggerok/jboss4-java5
+# Remote debug:
 ENV JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 "
 EXPOSE 5005
+# Multi-builds deploymetn:
 COPY ./build/libs/*.war ./target/*.ear ${JBOSS_HOME}/default/deploy/
 ```
 
