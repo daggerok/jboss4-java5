@@ -12,8 +12,12 @@ RUN apt-get update -y \
 WORKDIR /home/jboss
 USER jboss
 EXPOSE 8080
-ENV JBOSS_VERSION="${JBOSS_VERSION_ARG}" \
-    JBOSS_HOME="/home/jboss/jboss-${JBOSS_VERSION}"
+ENV JBOSS_VERSION="${JBOSS_VERSION_ARG}"
+ENV JBOSS_HOME="/home/jboss/jboss-${JBOSS_VERSION}"
+ENV JAVA_OPTS="$JAVA_OPTS \
+-Djboss.bind.address=0.0.0.0 \
+-Djboss.bind.address.management=0.0.0.0 \
+-Djava.net.preferIPv4Stack=true "
 CMD /bin/bash
 ENTRYPOINT /bin/bash ${JBOSS_HOME}/bin/run.sh
 RUN wget --no-check-certificate \
@@ -23,13 +27,16 @@ RUN wget --no-check-certificate \
  && rm -rf /tmp/*
 
 ############################################ USAGE ##############################################
-# FROM daggerok/jboss4-java5                                                                    #
+# FROM daggerok/jboss4-java5:v1                                                                 #
 # COPY --chown=jboss target/*.war ${JBOSS_HOME}/default/deploy/                                 #
 #################################################################################################
 
-######################################## DEBUG USAGE ############################################
-# FROM daggerok/jboss4-java5                                                                    #
+############################ MULTI-BUILD DEPLOYMENT | DEBUG USAGE ###############################
+# FROM daggerok/jboss4-java5:v1                                                                 #
+# # remote debug:                                                                               #
 # ENV JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" #
 # EXPOSE 5005                                                                                   #
+# # multi-build deployment                                                                      #
 # COPY --chown=jboss target/*.war ${JBOSS_HOME}/default/deploy/                                 #
 #################################################################################################
+
