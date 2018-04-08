@@ -1,4 +1,9 @@
 # jboss4-java5 [![Build Status](https://travis-ci.org/daggerok/jboss4-java5.svg?branch=master)](https://travis-ci.org/daggerok/jboss4-java5)
+
+## DEPRECATED
+
+### USE [daggerok](https://github.com/daggerok/jboss)/[jboss:4.2.3.GA-java1.5](https://hub.docker.com/r/daggerok/jboss) instead
+
 JBOSS 4 automation build for docker hub (based on docker image `lwis/java5` with preinstalled java 1.5)
 
 **Exposed ports**:

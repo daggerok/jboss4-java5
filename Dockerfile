@@ -11,7 +11,7 @@ RUN apt-get update -y \
  && apt-get remove openssh-client
 WORKDIR /home/jboss
 USER jboss
-EXPOSE 8080
+EXPOSE 1009 8080 8009 8083 8093
 ENV JBOSS_VERSION="${JBOSS_VERSION_ARG}"
 ENV JBOSS_HOME="/home/jboss/jboss-${JBOSS_VERSION}"
 ENV JAVA_OPTS="$JAVA_OPTS \
@@ -27,7 +27,7 @@ RUN wget --no-check-certificate \
  && rm -rf /tmp/*
 
 ############################################ USAGE ##############################################
-# FROM daggerok/jboss4-java5                                                                    #
+# FROM daggerok/jboss:4.2.3.GA-java1.5                                                          #
 # HEALTHCHECK --timeout=2s --retries=22 \                                                       #
 #         CMD wget -q --spider http://127.0.0.1:8080/my-service/health \                        #
 #          || exit 1                                                                            #
@@ -35,11 +35,10 @@ RUN wget --no-check-certificate \
 #################################################################################################
 
 ############################## DEBUG | MULTI-DEPLOYMENTS USAGE ##################################
-# FROM daggerok/jboss4-java5                                                                    #
+# FROM daggerok/jboss:4.2.3.GA-java1.5                                                          #
 # # Debug:                                                                                      #
 # ENV JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005" #
 # EXPOSE 5005                                                                                   #
 # # Multi builds:                                                                               #
 # COPY --chown=jboss target/*.war ${JBOSS_HOME}/default/deploy/                                 #
 #################################################################################################
-
